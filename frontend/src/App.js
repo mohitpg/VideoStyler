@@ -9,7 +9,7 @@ import { Route, Routes, Link } from 'react-router-dom';
 function App() {
   return (
     <div className="App">
-      <Navbar bg="dark">
+      <Navbar style={{background:"transparent"}}>
         <Container >
           <Nav className="mx-auto">
             <Navbar.Brand><Link to="/" id="home">Home</Link></Navbar.Brand>
