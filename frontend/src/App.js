@@ -9,11 +9,11 @@ import { Route, Routes, Link } from 'react-router-dom';
 function App() {
   return (
     <div className="App">
-      <Navbar variant='light'>
+      <Navbar bg="dark">
         <Container >
           <Nav className="mx-auto">
-            <Navbar.Brand><Link to="/">Home</Link></Navbar.Brand>
-            <Navbar.Brand><Link to="/gallery">Your Collections</Link></Navbar.Brand>
+            <Navbar.Brand><Link to="/" id="home">Home</Link></Navbar.Brand>
+            <Navbar.Brand><Link to="/gallery" id='gallery'>Your collections</Link></Navbar.Brand>
           </Nav>
         </Container>
       </Navbar>

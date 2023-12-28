@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300&family=Oswald&family=Roboto+Condensed&display=swap');
-.offTitle {
-    font-family: 'Oswald';
-    color: white !important;
-    font-size: 2rem !important;
+#home{
+  font-family: 'Roboto Condensed';
+  color: antiquewhite;
+  text-decoration: none;
 }
-.offBody {
-    font-family: 'Alegreya Sans';
-    color: antiquewhite;
-    font-size: 1rem;
+#gallery{
+  font-family: 'Roboto Condensed';
+  color: antiquewhite;
+  text-decoration: none;
 }
