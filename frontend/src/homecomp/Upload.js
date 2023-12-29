@@ -1,3 +1,4 @@
+import "./Upload.css"
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 
@@ -6,12 +7,12 @@ function Upload (props){
         props.onupload(e);
     }
     return (
-        <Card style={{ width: '20%' }}>
-          <Card.Img variant="top" src={props.image}/>
+        <Card className="text-white" id="cardm">
+          <Card.Img variant="top" src={props.image} id="cardimg"/>
           <Card.Body>
-            <Card.Title>Card Title</Card.Title>
+            <Card.Title id="cardtitle">Upload the image to be converted!</Card.Title>
             <Form >
-                <input type="file" name="imageinput" onChange={uploadHandler} style={{margin:'1px -10% 1px auto'}}/>
+                <input type="file" name="imageinput" onChange={uploadHandler} />
             </Form>
           </Card.Body>
         </Card>
