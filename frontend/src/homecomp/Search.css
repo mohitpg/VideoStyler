@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300&family=Oswald&family=Roboto+Condensed&display=swap');
+
+#cardm{
+    width: 60% ;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10%;
+    background-color: transparent;
+    backdrop-filter: blur(3px);
+}
+#cardimg{
+    width: 30vh;
+    height: 30vh;
+    object-fit: cover;
+    margin: auto;
+}
+#cardtitle{
+    font-size: 1.5rem;
+    font-family: 'Alegreya Sans';
+    margin-bottom: 2rem;
+}
