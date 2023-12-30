@@ -16,8 +16,11 @@ function Home(){
       (e.target.files.length===1)?setFile2(URL.createObjectURL(e.target.files[0])):setFile2(uploadimg);
      }
     async function handleSearch(){
-      const q=localStorage.getItem('api');
-      const tempimg= await fetch(q);
+      const id=localStorage.getItem('api');
+      const path=await fetch("https://api.artic.edu/api/v1/artworks/"+id+"?fields=image_id");
+      const pathval= await path.json();
+      let qpath=pathval.config.iiif_url+"/"+pathval.data.image_id+"/full/843,/0/default.jpg";
+      const tempimg= await fetch(qpath);
       const currImage= await tempimg.blob();
       setFile2(URL.createObjectURL(currImage));
     }
