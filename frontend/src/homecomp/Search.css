@@ -15,8 +15,12 @@
     object-fit: cover;
     margin: auto;
 }
-#cardtitle{
-    font-size: 1.5rem;
+#cardtitle1{
+    font-size: 1rem;
     font-family: 'Alegreya Sans';
-    margin-bottom: 2rem;
+}
+#sform:focus{
+    box-shadow: none;
+    border: none;
+    outline: none;
 }

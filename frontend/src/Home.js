@@ -10,18 +10,22 @@ function Home(){
     const [file1, setFile1] = useState(uploadimg);
     const [file2, setFile2] = useState(uploadimg);
     function handleChange1(e) {
-        console.log(e.target.files.length);
         (e.target.files.length===1)?setFile1(URL.createObjectURL(e.target.files[0])):setFile1(uploadimg);
      }
     function handleChange2(e) {
-      console.log(e.target.files.length);
       (e.target.files.length===1)?setFile2(URL.createObjectURL(e.target.files[0])):setFile2(uploadimg);
      }
+    async function handleSearch(){
+      const q=localStorage.getItem('api');
+      const tempimg= await fetch(q);
+      const currImage= await tempimg.blob();
+      setFile2(URL.createObjectURL(currImage));
+    }
     return (
     <Container>
       <Row style={{marginTop:'5%'}}>
         <Col style={{height:'60%'}}><Upload onupload={handleChange1} image={file1}/></Col>
-        <Col style={{height:'60%'}}><Search onupload={handleChange2} image={file2}/></Col>
+        <Col style={{height:'60%'}}><Search onupload={handleChange2} onsearch={handleSearch} image={file2}/></Col>
       </Row>
     </Container>
       );
