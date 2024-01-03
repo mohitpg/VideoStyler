@@ -8,9 +8,11 @@ function Upload (props){
     }
     return (
         <Card className="text-white" id="cardm">
-          <Card.Img variant="top" src={props.image} id="cardimg"/>
+          <video key={props.vid} width="240" height="200" controls style={{margin:"auto auto auto auto"}}>
+            <source src={props.vid} type="video/mp4" />
+          </video>
           <Card.Body>
-            <Card.Title id="cardtitle">Upload the image to be converted!</Card.Title>
+            <Card.Title id="cardtitle">Upload the video to be converted!</Card.Title>
             <Form >
                 <input type="file" name="imageinput" onChange={uploadHandler} />
             </Form>

@@ -10,11 +10,11 @@ import Button from "react-bootstrap/esm/Button";
 
 function Home(){
     const scroll=useRef(null);
-    const [file1, setFile1] = useState(uploadimg);
+    const [file1, setFile1] = useState(null);
     const [file2, setFile2] = useState(uploadimg);
     const [enable, setEnable] = useState(0);
     function handleChange1(e) {
-        (e.target.files.length===1)?setFile1(URL.createObjectURL(e.target.files[0])):setFile1(uploadimg);
+        (e.target.files.length===1)?setFile1(URL.createObjectURL(e.target.files[0])):setFile1(null);
         setEnable(enable+1);
      }
     function handleChange2(e) {
@@ -34,7 +34,7 @@ function Home(){
     return (
     <Container>
       <Row style={{marginTop:'5%'}}>
-        <Col style={{height:'60%'}}><Upload onupload={handleChange1} image={file1}/></Col>
+        <Col style={{height:'60%'}}><Upload onupload={handleChange1} vid={file1}/></Col>
         <Col style={{height:'60%'}}><Search onupload={handleChange2} onsearch={handleSearch} image={file2}/></Col>
       </Row>
       <Row>
