@@ -56,8 +56,8 @@ function Home(){
         let blob = await fetch(data).then(r => r.blob());
         imgs.append("fil",blob);
       }
-      const response= await axios.post('http://localhost:5000/imagess',imgs);
-      console.log(response);
+      const response= await axios.post('http://localhost:5000/imagess',imgs,{responseType: 'blob'});
+      setVid(URL.createObjectURL(response.data));
     }
     return (
     <Container>

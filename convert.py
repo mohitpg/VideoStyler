@@ -179,10 +179,12 @@ class StyleFrame:
 
     def create_video(self):
         self.output_frame_directory = glob.glob(f'{self.conf.OUTPUT_FRAME_DIRECTORY}/*')
-        fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+        fourcc = cv2.VideoWriter_fourcc('H','2','6','4')
         video_writer = cv2.VideoWriter(self.conf.OUTPUT_VIDEO_PATH, fourcc, self.conf.OUTPUT_FPS, (self.frame_width, self.conf.FRAME_HEIGHT))
 
         for count, filename in enumerate(sorted(self.output_frame_directory)):
+            if count % 10 == 0:
+                print(f"Saving frame: {(count/len(self.output_frame_directory)):.0%}")
             image = cv2.imread(filename)
             video_writer.write(image)
 

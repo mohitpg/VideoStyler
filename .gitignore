@@ -1,3 +1,7 @@
 /tensorflow_cache
 /__pycache__
 /input_video.*
+/output_video.*
+/input_frames/*
+/output_frames/*
+/style_ref/*
