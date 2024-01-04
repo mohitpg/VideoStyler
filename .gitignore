@@ -1,2 +1,3 @@
 /tensorflow_cache
 /__pycache__
+*.mp4

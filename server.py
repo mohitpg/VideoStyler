@@ -18,8 +18,7 @@ def saveimg():
    print("hello")
    data=request.files.getlist('fil')
    for i,img in enumerate(data):
-      img.save(f"./{i}.jpg")
-   print(data)
+      img.save(f"./style_ref/{i}.jpg")
    return jsonify("ok")
 
 if __name__ == '__main__':

@@ -1,17 +1,23 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Upload from "./homecomp/Upload";
 import Search from "./homecomp/Search";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from "react-bootstrap/esm/Button";
+import ProgressBar from 'react-bootstrap/ProgressBar';
 import axios from "axios"
+import "./Home.css"
 
 function Home(){
     const scroll=useRef(null);
     const [file1, setFile1] = useState(null);
     const [file2, setFile2] = useState([]);
     const [enable, setEnable] = useState(0);
+    const [vid, setVid] = useState(null);
+    useEffect(() => {
+      scroller()
+    }, [enable]);
     async function handleChange1(e) {
         if (e.target.files.length===1) setFile1(URL.createObjectURL(e.target.files[0]))
         else {setFile1(null);
@@ -40,12 +46,12 @@ function Home(){
       setFile2([...file2,URL.createObjectURL(currImage)])
       setEnable(enable+1);
     }
+    function scroller(){
+      scroll.current?.scrollIntoView({behaviour:"smooth"});
+    }
     async function handleSubmit(){
+      setEnable(-1);
       const imgs=new FormData();
-      // let blob1 = await fetch(file2[0]).then(r => r.blob());
-      // let blob2 = await fetch(file2[1]).then(r => r.blob());
-      // temp.append("abc",blob1);
-      // temp.append("abc",blob2);
       for(const data of file2){
         let blob = await fetch(data).then(r => r.blob());
         imgs.append("fil",blob);
@@ -60,12 +66,15 @@ function Home(){
         <Col style={{height:'60%'}}><Search onupload={handleChange2} onsearch={handleSearch} images={file2}/></Col>
       </Row>
       <Row>
-        {enable>100?<Button variant="success" style={{margin:'2% auto 0px auto',width:"20%"}} onClick={handleSubmit}>Submit</Button>:
-        <Button variant="success" disabled style={{margin:'2% auto 0px auto',width:"20%"}}>Submit</Button>}
+        {enable>100?<Button variant="success" id="multibutton" onClick={handleSubmit}>Submit</Button>:
+        enable<0? <div><ProgressBar animated now={100} id="multibutton"/></div>:
+        <Button variant="success" disabled id="multibutton">Submit</Button>}
       </Row>
+      {enable<0?
       <Row>
-
+        <video key={vid} width="480" height="400" controls style={{margin:"3rem auto 5rem auto",width:"48rem"}}><source src={vid} type="video/mp4" /></video>
       </Row>
+      :<Row></Row>}
       <div ref={scroll}></div>
     </Container>
       );

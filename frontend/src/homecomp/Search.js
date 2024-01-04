@@ -40,8 +40,8 @@ function Search (props){
         <Card className="text-white" id="cardm">
           <Carousel slide={false}>
             {props.images.map(data =>
-            <Carousel.Item style={{height:"18rem",width:"32rem"}}>
-              <img src={data}  style={{height:"16rem",width:"29rem",margin:"auto"}}/>
+            <Carousel.Item style={{height:"14rem",width:"25rem"}}>
+              <img src={data}  style={{height:"14rem",width:"25rem",margin:"auto"}}/>
               <Carousel.Caption>
               <p>Nulla.</p>
               </Carousel.Caption>
