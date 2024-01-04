@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Carousel from 'react-bootstrap/Carousel';
 import Render from "./Render";
 
 function Search (props){
@@ -37,9 +38,17 @@ function Search (props){
     }
     return (
         <Card className="text-white" id="cardm">
-          <Card.Img variant="top" src={props.image} id="cardimg"/>
+          <Carousel slide={false}>
+            {props.images.map(data =>
+            <Carousel.Item style={{height:"18rem",width:"32rem"}}>
+              <img src={data}  style={{height:"16rem",width:"29rem",margin:"auto"}}/>
+              <Carousel.Caption>
+              <p>Nulla.</p>
+              </Carousel.Caption>
+            </Carousel.Item>)}
+          </Carousel>
           <Card.Body>
-            <Card.Title id="cardtitle1">Upload the image to be converted!</Card.Title>
+            <Card.Title id="cardtitle1">Upload the style images</Card.Title>
             <Form >
                 <input type="file" name="imageinput" onChange={uploadHandler} />
             </Form>

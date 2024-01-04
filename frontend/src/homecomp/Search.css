@@ -18,6 +18,7 @@
 #cardtitle1{
     font-size: 1.25rem;
     font-family: 'Alegreya Sans';
+    text-align: center;
 }
 #sform:focus{
     box-shadow: none;

@@ -83,10 +83,7 @@ class StyleFrame:
                 resized_ref = True
                 style_ref = cv2.resize(style_ref, (first_style_width, first_style_height))
             style_refs.append(style_ref / self.MAX_CHANNEL_INTENSITY)
-
-        if resized_ref:
-            print("WARNING: Resizing style images which may cause distortion. To avoid this, please provide style images with the same dimensions")
-
+            
         self.transition_style_seq = list()
         for i in range(self.ref_count):
             if self.conf.STYLE_SEQUENCE[i] is None:
@@ -186,8 +183,6 @@ class StyleFrame:
         video_writer = cv2.VideoWriter(self.conf.OUTPUT_VIDEO_PATH, fourcc, self.conf.OUTPUT_FPS, (self.frame_width, self.conf.FRAME_HEIGHT))
 
         for count, filename in enumerate(sorted(self.output_frame_directory)):
-            if count % 10 == 0:
-                print(f"Saving frame: {(count/len(self.output_frame_directory)):.0%}")
             image = cv2.imread(filename)
             video_writer.write(image)
 
