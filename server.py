@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, after_this_request
 from flask_cors import CORS
 import os
 import tensorflow as tf
@@ -20,15 +20,17 @@ def savevid():
    return jsonify("ok")
  
 @app.route("/imagess",methods=['GET','POST'])
-def saveimg():
-   print("hello")
+def saveimg(): 
    data=request.files.getlist('fil')
+   n=len(data)
+   style_seq=[i for i in range(n)]
+   Config.STYLE_SEQUENCE=style_seq
    for i,img in enumerate(data):
       img.save(f"./style_ref/{i}.jpg")
-   StyleFrame().run()
-   # filelist=[f for f in os.listdir("./style_ref")]
-   # for f in filelist:
-   #    os.remove(os.path.join("./style_ref", f))
+   StyleFrame(Config).run()
+   filelist=[f for f in os.listdir("./style_ref")]
+   for f in filelist:
+      os.remove(os.path.join("./style_ref", f))
    return send_file("./output_video.mp4",mimetype="video/mp4")
 
 if __name__ == '__main__':

@@ -58,6 +58,7 @@ function Home(){
       }
       const response= await axios.post('http://localhost:5000/imagess',imgs,{responseType: 'blob'});
       setVid(URL.createObjectURL(response.data));
+      setEnable(0);
     }
     return (
     <Container>
