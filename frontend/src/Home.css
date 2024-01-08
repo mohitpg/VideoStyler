@@ -2,3 +2,20 @@
     margin: 2% auto 0px auto;
     width: 20%;
 }
+
+#outvid{
+    margin:3rem auto 0px auto;
+    width:48rem;
+}
+
+#downloader{
+    margin:0px 0px auto auto;
+    width: 24rem;
+    border-radius: 0%;
+}
+
+#saver{
+    margin:0px auto 5rem 0px;
+    width:24rem;
+    border-radius: 0%;
+}

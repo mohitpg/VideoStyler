@@ -42,15 +42,19 @@ function Search (props){
             {props.images.map(data =>
             <Carousel.Item style={{height:"14rem",width:"25rem"}}>
               <img src={data}  style={{height:"14rem",width:"25rem",margin:"auto"}}/>
-              <Carousel.Caption>
-              <p>Nulla.</p>
-              </Carousel.Caption>
             </Carousel.Item>)}
           </Carousel>
           <Card.Body>
             <Card.Title id="cardtitle1">Upload the style images</Card.Title>
             <Form >
-                <input type="file" name="imageinput" onChange={uploadHandler} />
+                <Row>
+                  <Col>
+                    <input type="file" name="imageinput" onChange={uploadHandler} style={{}}/>
+                  </Col>
+                  <Col>
+                    <button onClick={(e) =>{e.preventDefault();props.ondelete();}}>X</button>
+                  </Col>
+                </Row>
             </Form>
             <Card.Title id="cardtitle1" style={{textAlign:'center'}}>Or</Card.Title>
             <Card.Title id="cardtitle1">Search an art piece</Card.Title>

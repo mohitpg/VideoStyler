@@ -8,7 +8,7 @@ function Upload (props){
     }
     return (
         <Card className="text-white" id="cardm">
-          <video key={props.vid} width="240" height="200" controls style={{margin:"auto auto auto auto"}}>
+          <video key={props.vid} width="360" height="220" controls style={{margin:"auto auto auto auto"}}>
             <source src={props.vid} type="video/mp4" />
           </video>
           <Card.Body>

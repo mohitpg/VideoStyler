@@ -66,12 +66,13 @@ function Home(){
     async function savetodb(){
       const response=await axios.post('http://localhost:5000/cloud');
       console.log(response);
+      setEnablevid(1);
     }
     return (
     <Container>
       <Row style={{marginTop:'5%'}}>
         <Col style={{height:'60%'}}><Upload onupload={handleChange1} vid={file1}/></Col>
-        <Col style={{height:'60%'}}><Search onupload={handleChange2} onsearch={handleSearch} images={file2}/></Col>
+        <Col style={{height:'60%'}}><Search onupload={handleChange2} onsearch={handleSearch} ondelete={() =>{setEnable(enable>=100?100:0);setFile2([])}} images={file2}/></Col>
       </Row>
       <Row>
         {enable>100?<Button variant="success" id="multibutton" onClick={handleSubmit}>Submit</Button>:
@@ -80,8 +81,13 @@ function Home(){
       </Row>
       {enablevid?
       <Row>
-        <video key={vid} width="480" height="400" controls style={{margin:"3rem auto 5rem auto",width:"48rem"}}><source src={vid} type="video/mp4" /></video>
-        {enablevid>10?<Button onClick={savetodb}>Yolo</Button>:<></>}
+        <video key={vid} width="480" height="400" controls id="outvid"><source src={vid} type="video/mp4" /></video>
+        {enablevid>10?
+        <Row>
+          <a href={vid} download="artvideo" className="btn btn-light" id="downloader">Download</a>
+          <Button onClick={savetodb} id="saver">Save</Button>
+        </Row>
+        :<></>}
       </Row>
       :<Row></Row>}
       <div ref={scroll}></div>

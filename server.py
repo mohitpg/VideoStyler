@@ -38,7 +38,8 @@ def styler():
    data=request.files.getlist('fil')
    n=len(data)
    style_seq=[i for i in range(n)]
-   style_seq.append(None)
+   if(n<2):
+      style_seq.append(None)
    Config.STYLE_SEQUENCE=style_seq
    for i,img in enumerate(data):
       img.save(f"./style_ref/{i}.jpg")
