@@ -14,6 +14,7 @@ function Home(){
     const [file1, setFile1] = useState(null);
     const [file2, setFile2] = useState([]);
     const [enable, setEnable] = useState(0);
+    const [enablevid, setEnablevid] = useState(0);
     const [vid, setVid] = useState(null);
     useEffect(() => {
       scroller()
@@ -50,7 +51,8 @@ function Home(){
       scroll.current?.scrollIntoView({behaviour:"smooth"});
     }
     async function handleSubmit(){
-      setEnable(-1);
+      setEnable(-1000);
+      setEnablevid(1);
       const imgs=new FormData();
       for(const data of file2){
         let blob = await fetch(data).then(r => r.blob());
@@ -58,7 +60,12 @@ function Home(){
       }
       const response= await axios.post('http://localhost:5000/imagess',imgs,{responseType: 'blob'});
       setVid(URL.createObjectURL(response.data));
+      setEnablevid(11);
       setEnable(0);
+    }
+    async function savetodb(){
+      const response=await axios.post('http://localhost:5000/cloud');
+      console.log(response);
     }
     return (
     <Container>
@@ -71,9 +78,10 @@ function Home(){
         enable<0? <div><ProgressBar animated now={100} id="multibutton"/></div>:
         <Button variant="success" disabled id="multibutton">Submit</Button>}
       </Row>
-      {enable<0?
+      {enablevid?
       <Row>
         <video key={vid} width="480" height="400" controls style={{margin:"3rem auto 5rem auto",width:"48rem"}}><source src={vid} type="video/mp4" /></video>
+        {enablevid>10?<Button onClick={savetodb}>Yolo</Button>:<></>}
       </Row>
       :<Row></Row>}
       <div ref={scroll}></div>
