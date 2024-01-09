@@ -59,5 +59,10 @@ def savedb():
    shutil.copyfile("./output_video.mp4",s_vid)
    return jsonify("ok")
 
+@app.route("/currentvid",methods=['GET','POST'])
+def ret():
+   file=request.get_json()
+   route="./vids/"+file+".mp4"
+   return send_file(route,mimetype="video/mp4")
 if __name__ == '__main__':
    app.run(debug=True)
