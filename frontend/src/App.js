@@ -13,7 +13,7 @@ function App() {
         <Container >
           <Nav className="mx-auto">
             <Navbar.Brand><Link to="/" id="home">Home</Link></Navbar.Brand>
-            <Navbar.Brand><Link to="/gallery/659d57e9603b5f2e6f33e1a6" id='gallery'>Your collections</Link></Navbar.Brand>
+            <Navbar.Brand><Link to="/gallery/random" id='gallery'>Your collections</Link></Navbar.Brand>
           </Nav>
         </Container>
       </Navbar>
