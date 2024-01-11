@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file, render_template
+from flask import Flask, request, jsonify, send_file, render_template, url_for, send_from_directory
 from flask_cors import CORS
 import os
 import tensorflow as tf
@@ -31,6 +31,10 @@ def get_response_image(image_path):
 @app.route('/')
 def start():
    return render_template('index.html')
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 #Saves the initial video
 @app.route("/video",methods=['GET','POST'])
