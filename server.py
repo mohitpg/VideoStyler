@@ -6,7 +6,6 @@ import glob
 import cv2
 import datetime
 import shutil
-import zipfile
 from config import Config
 from convert import StyleFrame
 from PIL import Image
@@ -21,29 +20,26 @@ col=db["vids"]
 app = Flask(__name__)
 CORS(app)
 
+#Helper function to convert image to to base64
 def get_response_image(image_path):
-    pil_img = Image.open(image_path, mode='r') # reads the PIL image
+    pil_img = Image.open(image_path, mode='r')
     byte_arr = io.BytesIO()
-    pil_img.save(byte_arr, format='PNG') # convert the PIL image to byte array
-    encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii') # encode as base64
+    pil_img.save(byte_arr, format='PNG')
+    encoded_img = encodebytes(byte_arr.getvalue()).decode('ascii') 
     return encoded_img
  
 @app.route('/')
 def start():
-   s=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-   v_id=col.insert_one({"time":s}).inserted_id
-   s_img=".././videos/"+str(v_id)+".png"
-   s_vid=".././videos/"+str(v_id)+".mp4"
-   shutil.copy("./output_frames/0000_frame.png",s_img)
-   shutil.copy("./output_video.mp4",s_vid)
    return 'ok'
 
+#Saves the initial video
 @app.route("/video",methods=['GET','POST'])
 def savevid():
    data=request.files['video/mp4']
    data.save("./input_video.mp4")
    return jsonify("ok")
  
+#Saves the images and performs neural style transfer
 @app.route("/imagess",methods=['GET','POST'])
 def styler(): 
    data=request.files.getlist('fil')
@@ -60,6 +56,7 @@ def styler():
       os.remove(os.path.join("./style_ref", f))
    return send_file("./output_video.mp4",mimetype="video/mp4")
 
+#Saves the video and a thumbnail to mongodb
 @app.route("/cloud",methods=['GET','POST'])
 def savedb():
    s=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -73,14 +70,16 @@ def savedb():
    tnail.save(s_img, optimize=True, quality=75)
    return jsonify("ok")
 
+#Returns the requested video for collections
 @app.route("/currentvid",methods=['GET','POST'])
 def retvid():
    file=request.get_json()
    if file=="random":
-      file="659d57e9603b5f2e6f33e1a6"
+      file=str(col.find_one()['_id'])
    route="./vids/"+file+".mp4"
    return send_file(route,mimetype="video/mp4")
 
+#Returns the thumbnails according to order
 @app.route("/thumbnail",methods=['GET','POST'])
 def retthumbnail():
    order=request.args.get('order')

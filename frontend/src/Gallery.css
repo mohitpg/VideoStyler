@@ -6,7 +6,7 @@
 }
 #scrollinf{
     overflow: auto;
-    height: 70%;
+    height: 50%;
 }
 ::-webkit-scrollbar {
     width: 5px;

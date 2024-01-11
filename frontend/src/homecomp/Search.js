@@ -39,9 +39,9 @@ function Search (props){
     return (
         <Card className="text-white" id="cardm">
           <Carousel slide={false}>
-            {props.images.map(data =>
-            <Carousel.Item style={{height:"14rem",width:"25rem"}}>
-              <img src={data}  style={{height:"14rem",width:"25rem",margin:"auto"}}/>
+            {props.images.toReversed().map((data,it) =>
+            <Carousel.Item style={{height:"14rem",width:"25rem"}} key={it}>
+              <img src={data}  style={{height:"14rem",width:"25rem",margin:"auto"}} key={it}/>
             </Carousel.Item>)}
           </Carousel>
           <Card.Body>

@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from "react-bootstrap/esm/Button";
-import ProgressBar from 'react-bootstrap/ProgressBar';
+import Spinner from 'react-bootstrap/Spinner';
 import axios from "axios"
 import "./Home.css"
 
@@ -19,6 +19,7 @@ function Home(){
     useEffect(() => {
       scroller()
     }, [enable]);
+    
     async function handleChange1(e) {
         if (e.target.files.length===1) setFile1(URL.createObjectURL(e.target.files[0]))
         else {setFile1(null);
@@ -75,9 +76,19 @@ function Home(){
         <Col style={{height:'60%'}}><Search onupload={handleChange2} onsearch={handleSearch} ondelete={() =>{setEnable(enable>=100?100:0);setFile2([])}} images={file2}/></Col>
       </Row>
       <Row>
-        {enable>100?<Button variant="success" id="multibutton" onClick={handleSubmit}>Submit</Button>:
-        enable<0? <div><ProgressBar animated now={100} id="multibutton"/></div>:
-        <Button variant="success" disabled id="multibutton">Submit</Button>}
+        {enable>100?<Button variant="success" id="multibutton" onClick={handleSubmit}>Submit</Button>:enable<0? 
+        <div style={{textAlign:"center"}}>
+          <Button variant="success" disabled id="multibutton">
+          <Spinner
+            as="span"
+            animation="grow"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+          />
+          &nbsp;Please wait...
+        </Button>
+      </div>: <Button variant="success" disabled id="multibutton">Submit</Button>}
       </Row>
       {enablevid?
       <Row>
