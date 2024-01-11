@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file, after_this_request
+from flask import Flask, request, jsonify, send_file, render_template
 from flask_cors import CORS
 import os
 import tensorflow as tf
@@ -17,7 +17,7 @@ client= MongoClient("localhost",27017)
 db = client["neuralvids"]
 col=db["vids"]
 
-app = Flask(__name__)
+app=Flask(__name__,static_folder="frontend/build/static",template_folder="frontend/build")
 CORS(app)
 
 #Helper function to convert image to to base64
@@ -30,7 +30,7 @@ def get_response_image(image_path):
  
 @app.route('/')
 def start():
-   return 'ok'
+   return render_template('index.html')
 
 #Saves the initial video
 @app.route("/video",methods=['GET','POST'])

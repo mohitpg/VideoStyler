@@ -15,9 +15,9 @@ function Gallery(){
     const [vid,setVid]= useState(null);
     const [sug,setSug] = useState([]);
     const [pageid,setPageid] = useState([]);
-    
+
     async function fetchvid(){
-        const response= await axios.post('http://localhost:5000/currentvid',JSON.stringify(id), {
+        const response= await axios.post('/currentvid',JSON.stringify(id), {
             headers: {
               'Content-Type': 'application/json'
             },
@@ -27,7 +27,7 @@ function Gallery(){
         setVid(URL.createObjectURL(response.data));
     }
     async function fetchthumb(ord){
-        const url_='http://localhost:5000/thumbnail?order='+ord
+        const url_='/thumbnail?order='+ord
         const response= await axios.get(url_);
         setSug([...response.data.result])
         setPageid([...response.data.id])

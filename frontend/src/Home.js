@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import Upload from "./homecomp/Upload";
+import Upload from "./homecomp/UploadVideo";
 import Search from "./homecomp/Search";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -19,7 +19,7 @@ function Home(){
     useEffect(() => {
       scroller()
     }, [enable]);
-    
+
     async function handleChange1(e) {
         if (e.target.files.length===1) setFile1(URL.createObjectURL(e.target.files[0]))
         else {setFile1(null);
@@ -28,7 +28,7 @@ function Home(){
         }
         const upvid=new FormData();
         upvid.append('video/mp4',e.target.files[0]);
-        const response= await axios.post('http://localhost:5000/video',upvid);
+        const response= await axios.post('/video',upvid);
         console.log(response);
         setEnable(enable<100?enable+100:enable);
      }
@@ -59,13 +59,13 @@ function Home(){
         let blob = await fetch(data).then(r => r.blob());
         imgs.append("fil",blob);
       }
-      const response= await axios.post('http://localhost:5000/imagess',imgs,{responseType: 'blob'});
+      const response= await axios.post('/imagess',imgs,{responseType: 'blob'});
       setVid(URL.createObjectURL(response.data));
       setEnablevid(11);
       setEnable(0);
     }
     async function savetodb(){
-      const response=await axios.post('http://localhost:5000/cloud');
+      const response=await axios.post('/cloud');
       console.log(response);
       setEnablevid(1);
     }
