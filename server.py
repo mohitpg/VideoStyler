@@ -68,6 +68,9 @@ def savedb():
    s_vid="./vids/"+str(v_id)+".mp4"
    shutil.copyfile("./output_frames/0000_frame.png",s_img)
    shutil.copyfile("./output_video.mp4",s_vid)
+   tnail = Image.open(s_img)
+   tnail = tnail.resize((160,90))
+   tnail.save(s_img, optimize=True, quality=75)
    return jsonify("ok")
 
 @app.route("/currentvid",methods=['GET','POST'])
@@ -83,10 +86,14 @@ def retthumbnail():
    order=request.args.get('order')
    l=col.find({}).sort({'time': int(order)})
    encoded=[]
+   ids=[]
+   timestamps=[]
    for imgdict in l:
       ipath="./vids/"+str(imgdict['_id'])+".png"
       encoded.append(get_response_image(ipath))
-   return jsonify({'result': encoded})
+      ids.append(str(imgdict['_id']))
+      timestamps.append(imgdict['time'])
+   return jsonify({'result': encoded,"id":ids,"time":timestamps})
 
 if __name__ == '__main__':
    app.run(debug=True)
