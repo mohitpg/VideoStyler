@@ -1,4 +1,4 @@
-import "./Upload.css"
+import "./UploadVideo.css"
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 
