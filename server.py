@@ -32,9 +32,9 @@ def get_response_image(image_path):
 def start():
    return render_template('index.html')
 
-@app.route("/favicon.ico")
+@app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory(os.path.join(app.root_path, 'static'),'fav.ico', mimetype='image/vnd.microsoft.icon')
 
 #Saves the initial video
 @app.route("/video",methods=['GET','POST'])
