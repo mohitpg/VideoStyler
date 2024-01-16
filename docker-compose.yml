@@ -1,0 +1,24 @@
+version: '2'
+services:
+  web:
+    restart: always
+    build: ./
+    ports:
+      - '5000:5000'
+    depends_on:
+      - mongo
+      - mongo-express
+      
+  mongo:
+    image: mongo
+    restart: always
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+    depends_on:
+      - mongo
