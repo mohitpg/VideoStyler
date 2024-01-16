@@ -13,9 +13,9 @@ import io
 from base64 import encodebytes
 
 from pymongo import MongoClient
-client= MongoClient("localhost",27017)
-db = client["neuralvids"]
-col=db["vids"]
+# client= MongoClient("localhost",27017)
+# db = client["neuralvids"]
+# col=db["vids"]
 
 app=Flask(__name__,static_folder="frontend/build/static",template_folder="frontend/build")
 CORS(app)
@@ -99,4 +99,4 @@ def retthumbnail():
    return jsonify({'result': encoded,"id":ids,"time":timestamps})
 
 if __name__ == '__main__':
-   app.run(debug=True)
+   app.run(host='0.0.0.0')
