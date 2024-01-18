@@ -13,5 +13,12 @@
 <ol>
 <li>Clone the repository by running git clone</li>
 <li>Run <code>docker-compose up</code> </li>
-<li>The application can now be accessed at localhost:5050</li>
+<li>The application can now be accessed at localhost:5000</li>
 </ol>
+
+# Working
+
+https://github.com/mohitpg/art/assets/86587079/9bb474de-ad51-411d-8319-6f957613a1c9
+
+
+
