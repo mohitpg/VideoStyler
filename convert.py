@@ -179,7 +179,7 @@ class StyleFrame:
 
     def create_video(self):
         self.output_frame_directory = glob.glob(f'{self.conf.OUTPUT_FRAME_DIRECTORY}/*')
-        fourcc = cv2.VideoWriter_fourcc('X','2','6','4')
+        fourcc = cv2.VideoWriter.fourcc('X','2','6','4')
         video_writer = cv2.VideoWriter(self.conf.OUTPUT_VIDEO_PATH, fourcc, self.conf.OUTPUT_FPS, (self.frame_width, self.conf.FRAME_HEIGHT))
 
         for count, filename in enumerate(sorted(self.output_frame_directory)):

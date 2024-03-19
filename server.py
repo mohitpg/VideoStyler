@@ -40,7 +40,7 @@ def favicon():
 @app.route("/video",methods=['GET','POST'])
 def savevid():
    data=request.files['video/mp4']
-   data.save("./input_video.mp4")
+   data.save(Config.INPUT_VIDEO_PATH)
    return jsonify("ok")
  
 #Saves the images and performs neural style transfer
@@ -53,12 +53,12 @@ def styler():
       style_seq.append(0)
    Config.STYLE_SEQUENCE=style_seq
    for i,img in enumerate(data):
-      img.save(f"./style_ref/{i}.jpg")
+      img.save(f"{Config.STYLE_REF_DIRECTORY}/{i}.jpg")
    StyleFrame(Config).run()
-   filelist=[f for f in os.listdir("./style_ref")]
+   filelist=[f for f in os.listdir(Config.STYLE_REF_DIRECTORY)]
    for f in filelist:
-      os.remove(os.path.join("./style_ref", f))
-   return send_file("./output_video.mp4",mimetype="video/mp4")
+      os.remove(os.path.join(Config.STYLE_REF_DIRECTORY, f))
+   return send_file(Config.OUTPUT_VIDEO_PATH,mimetype="video/mp4")
 
 #Saves the video and a thumbnail to mongodb
 @app.route("/cloud",methods=['GET','POST'])
@@ -67,8 +67,8 @@ def savedb():
    v_id=col.insert_one({"time":s}).inserted_id
    s_img="./vids/"+str(v_id)+".png"
    s_vid="./vids/"+str(v_id)+".mp4"
-   shutil.copyfile("./output_frames/0000_frame.png",s_img)
-   shutil.copyfile("./output_video.mp4",s_vid)
+   shutil.copyfile(f"{Config.OUTPUT_FRAME_DIRECTORY}/0000_frame.png",s_img)
+   shutil.copyfile(f"{Config.OUTPUT_VIDEO_PATH}",s_vid)
    tnail = Image.open(s_img)
    tnail = tnail.resize((160,90))
    tnail.save(s_img, optimize=True, quality=75)
@@ -98,5 +98,18 @@ def retthumbnail():
       timestamps.append(imgdict['time'])
    return jsonify({'result': encoded,"id":ids,"time":timestamps})
 
+def check_file_structure():
+   dirs = [ 
+      "./data/",
+      Config.INPUT_FRAME_DIRECTORY,
+      Config.OUTPUT_FRAME_DIRECTORY,
+      Config.STYLE_REF_DIRECTORY
+   ]
+   for dir in dirs:
+      if not os.path.exists(dir):
+         print("Creating dir: ", dir)
+         os.mkdir(dir)
+
 if __name__ == '__main__':
+   check_file_structure()
    app.run(host='0.0.0.0')
