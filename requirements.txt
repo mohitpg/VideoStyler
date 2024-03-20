@@ -2,6 +2,7 @@ numpy==1.24.2
 tensorflow==2.13.0
 tensorflow_hub==0.15.0
 opencv-python-headless
+ffmpegcv
 flask==2.3.2
 flask_cors==4.0.0
 pillow==9.4.0
