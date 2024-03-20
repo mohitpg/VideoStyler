@@ -64,8 +64,8 @@ def styler():
 def savedb():
    s=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
    v_id=col.insert_one({"time":s}).inserted_id
-   s_img="./vids/"+str(v_id)+".png"
-   s_vid="./vids/"+str(v_id)+".mp4"
+   s_img= f'{Config.ARCHIVE_DIRECTORY}/{str(v_id)}.png'
+   s_vid= f'{Config.ARCHIVE_DIRECTORY}/{str(v_id)}.mp4'
    shutil.copyfile(f"{Config.OUTPUT_FRAME_DIRECTORY}/0000_frame.png",s_img)
    shutil.copyfile(f"{Config.OUTPUT_VIDEO_PATH}",s_vid)
    tnail = Image.open(s_img)
@@ -79,7 +79,7 @@ def retvid():
    file=request.get_json()
    if file=="random":
       file=str(col.find_one()['_id'])
-   route="./vids/"+file+".mp4"
+   route= f'{Config.ARCHIVE_DIRECTORY}/{file}.mp4'
    return send_file(route,mimetype="video/mp4")
 
 #Returns the thumbnails according to order
@@ -91,7 +91,7 @@ def retthumbnail():
    ids=[]
    timestamps=[]
    for imgdict in l:
-      ipath="./vids/"+str(imgdict['_id'])+".png"
+      ipath=f"{Config.ARCHIVE_DIRECTORY}/{str(imgdict['_id'])}.png"
       encoded.append(get_response_image(ipath))
       ids.append(str(imgdict['_id']))
       timestamps.append(imgdict['time'])
@@ -102,7 +102,8 @@ def check_file_structure():
       "./data/",
       Config.INPUT_FRAME_DIRECTORY,
       Config.OUTPUT_FRAME_DIRECTORY,
-      Config.STYLE_REF_DIRECTORY
+      Config.STYLE_REF_DIRECTORY,
+      Config.ARCHIVE_DIRECTORY
    ]
    for dir in dirs:
       if not os.path.exists(dir):

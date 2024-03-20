@@ -23,6 +23,8 @@ class Config:
     OUTPUT_FRAME_FILE = '{:0>4d}_frame.png'
     OUTPUT_FRAME_PATH = f'{OUTPUT_FRAME_DIRECTORY}/{OUTPUT_FRAME_FILE}'
 
+    ARCHIVE_DIRECTORY = f'{ROOT_PATH}/data/archive'
+
     GHOST_FRAME_TRANSPARENCY = 0.1
     PRESERVE_COLORS = False
 

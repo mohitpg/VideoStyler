@@ -3,7 +3,20 @@ services:
   web:
     restart: always
     build: ./
+    volumes:
+      # Change if you want to change the storage destination
+      # Left site of the ':' is the storage on your computer
+      # Do Not touch the right site
+      # the mongo db-storage and the web-storage need to be
+      # both empty seperated folder
+      # if you consider backing them up or to delete them
+      # keep in mind, that both need to be in the same state
+      # you cant delete just one or have backups of
+      # different timestamps and excpect to get no bugs etc
+      - ./local_persistant/archive:/app/data/archive
     ports:
+      # the left side of the ':' is the port where to connect
+      # to:  'xxx:5000' => 'http://localhost:xxx' / 'http://ip:xxx'
       - '5000:5000'
     depends_on:
       - mongo
@@ -11,6 +24,17 @@ services:
       
   mongo:
     image: mongo
+    volumes:
+      # Change if you want to change the storage destination
+      # Left site of the ':' is the storage on your computer
+      # Do Not touch the right site
+      # the mongo db-storage and the web-storage need to be
+      # both empty seperated folder
+      # if you consider backing them up or to delete them
+      # keep in mind, that both need to be in the same state
+      # you cant delete just one or have backups of
+      # different timestamps and excpect to get no bugs etc
+      - ./local_persistant/db:/data/db
     restart: always
 
   mongo-express:
@@ -18,7 +42,14 @@ services:
     restart: always
     ports:
       - 27017:27017
+      # Uncomment for webinterface access
+      # only for devs
+      # - 5001:8081
     environment:
       ME_CONFIG_MONGODB_SERVER: mongo
+      # Uncomment for webinterface access and change username and pw
+      # only for devs
+      # ME_CONFIG_BASICAUTH_USERNAME: admin
+      # ME_CONFIG_BASICAUTH_PASSWORD: admin
     depends_on:
       - mongo
