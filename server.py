@@ -3,7 +3,6 @@ from flask_cors import CORS
 import os
 import tensorflow as tf
 import glob
-import cv2
 import datetime
 import shutil
 from config import Config
